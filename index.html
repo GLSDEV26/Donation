@@ -34,6 +34,34 @@
             </select>
           </label>
 
+          <div class="donors-grid">
+            <article class="donor-card">
+              <h4>Donateur 1</h4>
+              <label>
+                Nom
+                <input id="donor1Name" type="text" placeholder="Ex. Jean Martin" />
+              </label>
+              <label>
+                Date de naissance
+                <input id="donor1Birth" type="date" />
+              </label>
+              <p class="muted">Âge: <b id="donor1Age">—</b> · Usufruit: <b id="donor1Usufruit">—</b></p>
+            </article>
+
+            <article class="donor-card">
+              <h4>Donateur 2</h4>
+              <label>
+                Nom
+                <input id="donor2Name" type="text" placeholder="Ex. Marie Martin" />
+              </label>
+              <label>
+                Date de naissance
+                <input id="donor2Birth" type="date" />
+              </label>
+              <p class="muted">Âge: <b id="donor2Age">—</b> · Usufruit: <b id="donor2Usufruit">—</b></p>
+            </article>
+          </div>
+
           <div class="toggle-row">
             <span>Donations antérieures</span>
             <label class="switch">
@@ -51,11 +79,25 @@
         </div>
 
         <div class="block">
-          <div class="block-title-row">
-            <h3>Biens</h3>
-            <button id="addBienBtn" type="button" class="btn-secondary">➕ Ajouter un bien</button>
+          <h3>Biens</h3>
+
+          <div class="split-assets">
+            <section>
+              <div class="block-title-row">
+                <h4>Biens communs</h4>
+                <button id="addCommunBtn" type="button" class="btn-secondary">➕ Ajouter un bien commun</button>
+              </div>
+              <div id="biensCommunsContainer" class="biens-container"></div>
+            </section>
+
+            <section>
+              <div class="block-title-row">
+                <h4>Biens propres</h4>
+                <button id="addPropreBtn" type="button" class="btn-secondary">➕ Ajouter un bien propre</button>
+              </div>
+              <div id="biensPropresContainer" class="biens-container"></div>
+            </section>
           </div>
-          <div id="biensContainer" class="biens-container"></div>
         </div>
 
         <div class="block">
@@ -117,26 +159,13 @@
 
         <div class="grid-2">
           <label>
-            Type
-            <select class="bien-type">
-              <option value="commun">Commun</option>
-              <option value="propre">Propre</option>
-            </select>
-          </label>
-
-          <label>
             Propriétaire
-            <input class="bien-owner" type="text" placeholder="Ex. M. Martin" />
+            <select class="bien-owner"></select>
           </label>
 
           <label>
             Valeur (€)
             <input class="bien-valeur" type="number" min="0" value="0" />
-          </label>
-
-          <label>
-            Âge donateur
-            <input class="bien-age" type="number" min="18" max="110" value="55" />
           </label>
         </div>
 
