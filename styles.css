@@ -1,0 +1,331 @@
+:root {
+  --blue-main: #4a90e2;
+  --blue-soft: #eaf4ff;
+  --gray-bg: #f7f9fc;
+  --text: #243447;
+  --muted: #5c6b7a;
+  --shadow: 0 8px 20px rgba(36, 52, 71, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background: linear-gradient(180deg, #fff 0%, var(--gray-bg) 100%);
+}
+
+.app-header {
+  padding: 1.5rem 2rem 1rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+.app-header p {
+  color: var(--muted);
+  margin-top: 0.35rem;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 1rem;
+  padding: 0 2rem;
+}
+
+.panel {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 1rem;
+}
+
+.form-panel,
+.summary-panel {
+  min-height: 60vh;
+}
+
+.block {
+  background: var(--gray-bg);
+  border-radius: 12px;
+  padding: 0.95rem;
+  margin-top: 1rem;
+}
+
+.block h3 {
+  margin-bottom: 0.75rem;
+}
+
+.block-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+label {
+  display: block;
+  margin-top: 0.55rem;
+  font-size: 0.92rem;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  margin-top: 0.3rem;
+  border: none;
+  border-radius: 10px;
+  padding: 0.62rem 0.72rem;
+  font-size: 0.95rem;
+}
+
+input,
+select {
+  background: #fff;
+}
+
+button {
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: var(--blue-main);
+  color: #fff;
+  width: fit-content;
+  min-width: 280px;
+}
+
+.btn-secondary {
+  background: var(--blue-soft);
+  color: #2d5f96;
+  width: fit-content;
+}
+
+.donors-grid {
+  margin-top: 0.8rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+
+.donor-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 0.75rem;
+}
+
+.toggle-row {
+  margin-top: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  background: #cad4de;
+  border-radius: 999px;
+  transition: 0.25s;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 3px;
+  left: 3px;
+  border-radius: 50%;
+  background: white;
+  transition: 0.25s;
+}
+
+.switch input:checked + .slider {
+  background: var(--blue-main);
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(20px);
+}
+
+.reveal {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.28s ease, opacity 0.28s ease;
+}
+
+.reveal.active {
+  max-height: 120px;
+  opacity: 1;
+}
+
+.split-assets {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.split-assets section {
+  background: #fff;
+  border-radius: 10px;
+  padding: 0.7rem;
+}
+
+.biens-container {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 0.6rem;
+}
+
+.bien-card {
+  background: white;
+  border-radius: 12px;
+  padding: 0.75rem;
+  animation: fadeIn 0.24s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bien-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-link {
+  background: transparent;
+  color: #8a2a2a;
+  width: auto;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.auto-values {
+  margin-top: 0.7rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  color: var(--muted);
+}
+
+.kpi-grid {
+  margin-top: 0.9rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+}
+
+.kpi-card {
+  background: var(--blue-soft);
+  border-radius: 12px;
+  padding: 0.8rem;
+}
+
+.kpi-card h4 {
+  font-size: 0.85rem;
+  color: #275586;
+}
+
+.kpi-card p {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 0.28rem;
+}
+
+.kpi-full {
+  grid-column: 1 / -1;
+}
+
+.note-box {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  border-radius: 12px;
+  background: var(--gray-bg);
+}
+
+.generation-panel {
+  margin: 1rem 2rem 2rem;
+}
+
+.note-preview {
+  margin-top: 1rem;
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  min-height: 140px;
+  white-space: pre-line;
+  line-height: 1.5;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+@media (max-width: 980px) {
+  .layout,
+  .donors-grid,
+  .grid-2,
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  body {
+    background: white;
+  }
+
+  .form-panel,
+  .summary-panel,
+  #generateBtn {
+    display: none;
+  }
+
+  .generation-panel {
+    margin: 0;
+    box-shadow: none;
+  }
+}

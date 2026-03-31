@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulateur de note de synthèse — Donation</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>Simulateur de note de synthèse (Donation)</h1>
+      <p>Préparation d'acte notarié avec calculs automatiques et export.</p>
+    </header>
+
+    <main class="layout">
+      <section class="panel form-panel" aria-label="Formulaire donation">
+        <h2>① Informations &amp; saisie</h2>
+
+        <div class="block">
+          <h3>Informations générales</h3>
+          <label>
+            Nom du dossier
+            <input id="dossierNom" type="text" placeholder="Ex. Dossier Martin" />
+          </label>
+          <label>
+            Nombre d'enfants
+            <input id="nbEnfants" type="number" min="1" value="1" />
+          </label>
+          <label>
+            Situation
+            <select id="situation">
+              <option value="marie">Marié(e)</option>
+              <option value="pacse">Pacsé(e)</option>
+            </select>
+          </label>
+
+          <div class="donors-grid">
+            <article class="donor-card">
+              <h4>Donateur 1</h4>
+              <label>
+                Nom
+                <input id="donor1Name" type="text" placeholder="Ex. Jean Martin" />
+              </label>
+              <label>
+                Date de naissance
+                <input id="donor1Birth" type="date" />
+              </label>
+              <p class="muted">Âge: <b id="donor1Age">—</b> · Usufruit: <b id="donor1Usufruit">—</b></p>
+            </article>
+
+            <article class="donor-card">
+              <h4>Donateur 2</h4>
+              <label>
+                Nom
+                <input id="donor2Name" type="text" placeholder="Ex. Marie Martin" />
+              </label>
+              <label>
+                Date de naissance
+                <input id="donor2Birth" type="date" />
+              </label>
+              <p class="muted">Âge: <b id="donor2Age">—</b> · Usufruit: <b id="donor2Usufruit">—</b></p>
+            </article>
+          </div>
+
+          <div class="toggle-row">
+            <span>Donations antérieures</span>
+            <label class="switch">
+              <input id="hasAnterieure" type="checkbox" />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div id="anterieureField" class="reveal">
+            <label>
+              Montant donations antérieures (€)
+              <input id="montantAnterieure" type="number" min="0" value="0" />
+            </label>
+          </div>
+        </div>
+
+        <div class="block">
+          <h3>Biens</h3>
+
+          <div class="split-assets">
+            <section>
+              <div class="block-title-row">
+                <h4>Biens communs</h4>
+                <button id="addCommunBtn" type="button" class="btn-secondary">➕ Ajouter un bien commun</button>
+              </div>
+              <div id="biensCommunsContainer" class="biens-container"></div>
+            </section>
+
+            <section>
+              <div class="block-title-row">
+                <h4>Biens propres</h4>
+                <button id="addPropreBtn" type="button" class="btn-secondary">➕ Ajouter un bien propre</button>
+              </div>
+              <div id="biensPropresContainer" class="biens-container"></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="block">
+          <h3>Fiscalité</h3>
+          <label>
+            Abattement restant par enfant (€)
+            <input id="abattement" type="number" min="0" value="100000" />
+          </label>
+          <small class="muted">
+            Valeur de départ configurable. Les droits sont calculés sur la nue-propriété transmise.
+          </small>
+        </div>
+      </section>
+
+      <aside class="panel summary-panel" aria-label="Résumé dynamique">
+        <h2>② Résumé dynamique</h2>
+        <div class="kpi-grid">
+          <article class="kpi-card">
+            <h4>Total donné (nue-propriété)</h4>
+            <p id="kpiTotalDonne">0 €</p>
+          </article>
+          <article class="kpi-card">
+            <h4>Par enfant</h4>
+            <p id="kpiParEnfant">0 €</p>
+          </article>
+          <article class="kpi-card">
+            <h4>Part taxable / enfant</h4>
+            <p id="kpiTaxable">0 €</p>
+          </article>
+          <article class="kpi-card">
+            <h4>Droits estimés</h4>
+            <p id="kpiDroits">0 €</p>
+          </article>
+          <article class="kpi-card kpi-full">
+            <h4>Coût total (droits + frais fixes)</h4>
+            <p id="kpiCout">0 €</p>
+          </article>
+        </div>
+
+        <div class="note-box">
+          <h3>Répartition automatique</h3>
+          <p id="repartitionText">Aucun bien saisi.</p>
+        </div>
+      </aside>
+    </main>
+
+    <section class="panel generation-panel">
+      <h2>③ Génération de la note de synthèse</h2>
+      <button id="generateBtn" class="btn-primary" type="button">Générer la note de synthèse</button>
+      <article id="notePreview" class="note-preview"></article>
+    </section>
+
+    <template id="bienTemplate">
+      <article class="bien-card">
+        <div class="bien-header">
+          <strong>Bien <span class="bien-index"></span></strong>
+          <button type="button" class="delete-link">Supprimer</button>
+        </div>
+
+        <div class="grid-2">
+          <label>
+            Propriétaire
+            <select class="bien-owner"></select>
+          </label>
+
+          <label>
+            Valeur (€)
+            <input class="bien-valeur" type="number" min="0" value="0" />
+          </label>
+        </div>
+
+        <div class="auto-values">
+          <span>Usufruit: <b class="usufruit-value">0 %</b></span>
+          <span>Nue-propriété: <b class="nuepro-value">0 €</b></span>
+        </div>
+      </article>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>
